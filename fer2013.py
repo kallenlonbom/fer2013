@@ -60,6 +60,7 @@ class FERecognizer(nn.Module):
         return self.layers(x)
     
 def train(epoch):
+    model.train()
     total_loss = 0
     batches = trainloader.__len__()
     for x, labels in trainloader:
@@ -74,6 +75,7 @@ def train(epoch):
     print("Epoch %d Loss: %.4f%%" % (epoch, total_loss / batches))
 
 def test():
+    model.eval()
     correct = 0
     total = 0
     total_loss = 0
@@ -85,7 +87,7 @@ def test():
         correct += (torch.argmax(pred, 1) == labels).float().sum().item()
         total += labels.__len__()
 
-    print("Loss: %.4f Validation accuracy %.2f%%" % (total_loss / batches, correct / total *100))
+    print("Loss: %.4f Test accuracy %.2f%%" % (total_loss / batches, correct / total *100))
     print()
 
     
