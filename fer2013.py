@@ -23,6 +23,7 @@ class FERecognizer(nn.Module):
         self.layers = nn.Sequential(
             #1,48,48
             nn.Conv2d(1, 16, (3,3), stride=1, padding=1),
+            nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.Conv2d(16, 16, (3,3), stride=1, padding=1),
             nn.BatchNorm2d(16),
@@ -32,6 +33,7 @@ class FERecognizer(nn.Module):
             nn.MaxPool2d((2,2)),
             #16,24,24
             nn.Conv2d(16, 32, (3,3), stride=1, padding=1),
+            nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.Conv2d(32, 32, (3,3), stride=1, padding=1),
             nn.BatchNorm2d(32),
@@ -40,6 +42,7 @@ class FERecognizer(nn.Module):
             nn.MaxPool2d((2,2)),
             #32,12,12
             nn.Conv2d(32, 64, (3,3), stride=1, padding=1),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.Conv2d(64, 64, (3,3), stride=1, padding=1),
             nn.BatchNorm2d(64),
