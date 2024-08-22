@@ -49,9 +49,10 @@ class FERecognizer(nn.Module):
             nn.Linear(2304, 512),
             nn.BatchNorm1d(512),
             nn.ReLU(),
+            nn.Dropout(0.5),
             nn.Linear(512, 512),
-            nn.Dropout(0.3),
             nn.ReLU(),
+            nn.Dropout(0.5),
             nn.Linear(512,7)
         )
     
