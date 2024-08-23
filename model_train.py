@@ -11,8 +11,8 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 # data
 transform = torchvision.transforms.ToTensor()
-trainset = torchvision.datasets.FER2013('./data', 'train', transform=transform)
-testset = torchvision.datasets.FER2013('./data', 'test', transform=transform)
+trainset = torchvision.datasets.FER2013('./', 'train', transform=transform)
+testset = torchvision.datasets.FER2013('./', 'test', transform=transform)
 
 batch = 64
 
