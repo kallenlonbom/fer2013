@@ -12,7 +12,7 @@ testset = torchvision.datasets.FER2013('./', 'test', transform=transform)
 
 # load pretrained model
 model = FERecognizer()
-saved = torch.load('fer2013.pth', weights_only = True)
+saved = torch.load('fer2013.pth', weights_only = True, map_location=torch.device('cpu'))
 model.load_state_dict(saved)
 model.eval()
 

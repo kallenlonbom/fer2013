@@ -49,7 +49,7 @@ def test():
         correct += (torch.argmax(pred, 1) == labels).float().sum().item()
         total += labels.__len__()
 
-    print("Loss: %.4f Validation accuracy %.2f%%" % (total_loss / batches, correct / total *100))
+    print("Validation loss: %.4f Accuracy: %.2f%%" % (total_loss / batches, correct / total *100))
     print()
     return correct / total *100
 
@@ -62,7 +62,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 best = 0
 epochs = 300
 for epoch in range(epochs):
-    print(best)
+    print("Best accuracy: %.2f%%" % best)
     train(epoch)
     accuracy = test()
     if accuracy > best:
