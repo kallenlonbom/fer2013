@@ -1,7 +1,7 @@
 # fer2013: Facial Expression Recognition with Pytorch
 
 Using a convolutional neural network, achieved 63% accuracy (human performance is 65%, state of the art is 73%)  
-Loosely based on "Facial Emotion Recognition: State of the Art Performance on FER2013" by Yousif Khaireddin and Zhuofa Chen (https://arxiv.org/pdf/2105.03588)
+Loosely based on the model structure described in "Facial Emotion Recognition: State of the Art Performance on FER2013" by Yousif Khaireddin and Zhuofa Chen (https://arxiv.org/pdf/2105.03588)
 
 ## Requirements
 
