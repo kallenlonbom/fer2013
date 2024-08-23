@@ -4,9 +4,11 @@ import random
 import matplotlib.pyplot as plt
 from model import FERecognizer
 
+path = 'fer2013.pth'
+
 # data
 transform = torchvision.transforms.ToTensor()
-testset = torchvision.datasets.FER2013('./data', 'test', transform=transform)
+testset = torchvision.datasets.FER2013('./', 'test', transform=transform)
 
 # load pretrained model
 model = FERecognizer()
