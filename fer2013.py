@@ -4,6 +4,8 @@ import torch.optim as optim
 import torch.utils
 import torch.utils.data
 import torchvision
+import random
+import matplotlib.pyplot as plt
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -28,7 +30,7 @@ class FERecognizer(nn.Module):
             nn.Conv2d(16, 16, (3,3), stride=1, padding=1),
             nn.BatchNorm2d(16),
             nn.ReLU(),
-            nn.Dropout(0.3),
+            nn.Dropout(0.2),
             #16,48,48
             nn.MaxPool2d((2,2)),
             #16,24,24
@@ -38,6 +40,7 @@ class FERecognizer(nn.Module):
             nn.Conv2d(32, 32, (3,3), stride=1, padding=1),
             nn.BatchNorm2d(32),
             nn.ReLU(),
+            nn.Dropout(0.2),
             #32,24,24
             nn.MaxPool2d((2,2)),
             #32,12,12
@@ -47,7 +50,7 @@ class FERecognizer(nn.Module):
             nn.Conv2d(64, 64, (3,3), stride=1, padding=1),
             nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.Dropout(0.3),
+            nn.Dropout(0.2),
             #64,12,12
             nn.MaxPool2d((2,2)),
             #64,6,6
@@ -55,10 +58,10 @@ class FERecognizer(nn.Module):
             nn.Linear(2304, 512),
             nn.BatchNorm1d(512),
             nn.ReLU(),
-            nn.Dropout(0.5),
+            nn.Dropout(0.4),
             nn.Linear(512, 512),
             nn.ReLU(),
-            nn.Dropout(0.5),
+            nn.Dropout(0.4),
             nn.Linear(512,7)
         )
     
@@ -95,13 +98,44 @@ def test():
 
     print("Loss: %.4f Test accuracy %.2f%%" % (total_loss / batches, correct / total *100))
     print()
+    return correct / total *100
 
     
-model = FERecognizer().to(device)
-loss_fn = nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+# model = FERecognizer().to(device)
+# loss_fn = nn.CrossEntropyLoss()
+# optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
-epochs = 80
-for epoch in range(epochs):
-    train(epoch)
-    test()
+# best = 0
+# epochs = 300
+# for epoch in range(epochs):
+#     print(best)
+#     train(epoch)
+#     accuracy = test()
+#     if accuracy > best:
+#         best = accuracy
+#         torch.save(model.state_dict(), 'fer2013_2.pth')
+
+model = FERecognizer()
+saved = torch.load('fer2013.pth')
+model.load_state_dict(saved)
+model.eval()
+
+labels_dict = {
+    0:'Angry',
+    1:'Disgusted',
+    2:'Afraid',
+    3:'Happy',
+    4:'Sad',
+    5:'Surprised',
+    6:'Neutral'
+}
+
+for num in range(30):
+    index = random.randint(0, testset.__len__())
+    # X = torch.tensor(testset.__getitem__(index), dtype=torch.float32).permute(0,3,1,2)
+    h, y = testset.__getitem__(index)
+    pred = model(h.unsqueeze(0))
+    print('Pred:',labels_dict[pred.argmax().sum().item()])
+    print('Real:',labels_dict[y])
+    plt.imshow(h.squeeze(), cmap="gray")
+    plt.show()
