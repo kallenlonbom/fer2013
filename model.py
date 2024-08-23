@@ -1,5 +1,4 @@
 import torch.nn as nn
-import torch.utils.data
 import matplotlib.pyplot as plt
 
 class FERecognizer(nn.Module):
