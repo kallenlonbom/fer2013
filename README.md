@@ -16,7 +16,7 @@ Torchvision: 0.19.0
 
 ## Usage
 
-Ensure fer2013 files from Kaggle are in the repository, in a folder named "fer2023"  
+Ensure fer2013 files from Kaggle are in the repository, in a folder named "fer2013"  
   
 To demo trained model: ```python model_demo.py```  
   
